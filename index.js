@@ -46,6 +46,8 @@ async function run() {
       res.send(services);
     });
 
+
+    // Load all users on the admin page
     app.get('/user', verifyJWT, async (req, res) => {
       const users = await userCollection.find().toArray();
       res.send(users);
@@ -58,6 +60,7 @@ async function run() {
       res.send({ admin: isAdmin })
     })
 
+    // Create API to Make user an Admin
     app.put('/user/admin/:email', verifyJWT, async (req, res) => {
       const email = req.params.email;
       const requester = req.decoded.email;
@@ -76,6 +79,7 @@ async function run() {
 
     })
 
+    // add info under eamil info of user
     app.put('/user/:email', async (req, res) => {
       const email = req.params.email;
       const user = req.body;
